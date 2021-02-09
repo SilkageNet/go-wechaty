@@ -7,12 +7,12 @@ import (
 )
 
 type Images struct {
-  _interface.Accessory
+  _interface.IAccessory
 	ImageId string
 }
 
 // NewImages create image struct
-func NewImages(id string, accessory _interface.Accessory) *Images {
+func NewImages(id string, accessory _interface.IAccessory) *Images {
 	if accessory.GetPuppet() == nil {
 		panic("Image class can not be instantiated without a puppet!")
 	}
@@ -20,16 +20,16 @@ func NewImages(id string, accessory _interface.Accessory) *Images {
 }
 
 // Thumbnail message thumbnail images
-func (img *Images) Thumbnail() file_box.FileBox {
-	return img.Accessory.GetPuppet().MessageImage(img.ImageId, schemas.ImageTypeThumbnail)
+func (img *Images) Thumbnail() (*file_box.FileBox, error) {
+	return img.IAccessory.GetPuppet().MessageImage(img.ImageId, schemas.ImageTypeThumbnail)
 }
 
 // HD message hd images
-func (img *Images) HD() file_box.FileBox {
-	return img.Accessory.GetPuppet().MessageImage(img.ImageId, schemas.ImageTypeHD)
+func (img *Images) HD() (*file_box.FileBox, error) {
+	return img.IAccessory.GetPuppet().MessageImage(img.ImageId, schemas.ImageTypeHD)
 }
 
 // Artwork message artwork images
-func (img *Images) Artwork() file_box.FileBox {
-	return img.Accessory.GetPuppet().MessageImage(img.ImageId, schemas.ImageTypeArtwork)
+func (img *Images) Artwork() (*file_box.FileBox, error) {
+	return img.IAccessory.GetPuppet().MessageImage(img.ImageId, schemas.ImageTypeArtwork)
 }
